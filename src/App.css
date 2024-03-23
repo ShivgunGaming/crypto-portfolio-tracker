@@ -1,0 +1,76 @@
+body {
+  background-color: #333; /* Dark background */
+}
+
+.App {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #333; /* Darker background */
+  color: #eee; /* Light text color */
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Darker box shadow */
+}
+
+h1 {
+  text-align: center;
+  color: darkgreen; /* Dark green title color */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #555; /* Darker gray border */
+}
+
+th {
+  background-color: darkgreen; /* Dark green header background */
+  color: #fff; /* White text color */
+}
+
+.asset-logo {
+  width: 40px;
+  height: auto;
+}
+
+.positive {
+  color: #4fbf67; /* Dark green text color for positive change */
+}
+
+.negative {
+  color: #bf5050; /* Dark red text color for negative change */
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.input-field,
+.select-field {
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #555; /* Darker gray border */
+  border-radius: 5px;
+  margin-right: 10px;
+  background-color: #444; /* Darker input background */
+  color: #eee; /* Light input text color */
+}
+
+.button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: darkgreen; /* Dark green button background */
+  color: #fff; /* White text color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
