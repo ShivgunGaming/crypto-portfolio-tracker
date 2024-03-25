@@ -6,6 +6,9 @@ function App() {
   const [address, setAddress] = useState("");
   const [selectedChain, setSelectedChain] = useState("eth");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [netWorthData, setNetWorthData] = useState({});
+  const [totalNetWorth, setTotalNetWorth] = useState(0);
 
   const fetchAssets = async (address, chain) => {
     try {
@@ -20,6 +23,9 @@ function App() {
           },
         }
       );
+      if (!response.ok) {
+        throw new Error("Failed to fetch assets");
+      }
       const data = await response.json();
       const formattedAssets = data.result.map((asset) => ({
         ...asset,
@@ -27,22 +33,62 @@ function App() {
       }));
       setAssets(formattedAssets);
       setLoading(false);
+      setError(null);
     } catch (error) {
       console.error("Error fetching assets:", error);
       setLoading(false);
+      setError("Failed to fetch assets. Please check your address and try again.");
     }
   };
 
   useEffect(() => {
-    fetchAssets(address, selectedChain);
+    if (address.trim() !== "") {
+      fetchAssets(address, selectedChain);
+      fetchNetWorth(address);
+    }
   }, [address, selectedChain]);
+
+  const fetchNetWorth = async (address) => {
+    try {
+      const chains = ["eth", "bsc", "matic", "avalanche"];
+      const netWorthData = {};
+
+      await Promise.all(chains.map(async (chain) => {
+        const response = await fetch(
+          `https://deep-index.moralis.io/api/v2.2/wallets/${address}/net-worth?chains=${chain}&exclude_spam=true&exclude_unverified_contracts=true`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "X-API-Key": process.env.REACT_APP_MORALIS_API_KEY,
+            },
+          }
+        );
+        if (!response.ok) {
+          throw new Error(`Failed to fetch net worth for ${chain}`);
+        }
+        const data = await response.json();
+        netWorthData[chain] = parseFloat(data.total_networth_usd);
+      }));
+
+      setNetWorthData(netWorthData);
+
+      const totalNetWorthValue = Object.values(netWorthData).reduce((total, value) => total + value, 0);
+      setTotalNetWorth(totalNetWorthValue.toFixed(2));
+    } catch (error) {
+      console.error("Error fetching net worth:", error);
+    }
+  };
 
   const handleInputChange = (e) => {
     setAddress(e.target.value);
   };
 
   const handleButtonClick = () => {
-    fetchAssets(address, selectedChain);
+    if (address.trim() !== "") {
+      fetchAssets(address, selectedChain);
+      fetchNetWorth(address);
+    }
   };
 
   const handleSelectChange = (e) => {
@@ -74,52 +120,63 @@ function App() {
           {loading ? "Loading..." : "Show all my crypto!"}
         </button>
       </div>
+      {error && <p className="error">{error}</p>}
       {loading ? (
         <p className="center">Loading assets...</p>
       ) : (
-        <table>
-          <thead>
-            <tr>
-              <th>Logo</th>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Value</th>
-              <th>24h Change</th>
-            </tr>
-          </thead>
-          <tbody>
-            {assets.map((asset) => (
-              <tr key={asset.token_address}>
-                <td>
-                  <img
-                    src={asset.thumbnail}
-                    alt={asset.name}
-                    className="asset-logo"
-                  />
-                </td>
-                <td>{asset.name}</td>
-                <td>{Number(asset.usd_price).toFixed(2)}</td>
-                <td>
-                  {typeof asset.balance_formatted === "number"
-                    ? Number(asset.balance_formatted).toFixed(2)
-                    : asset.balance_formatted}
-                </td>
-                <td
-                  className={
-                    asset.usd_price_24hr_percent_change < 0
-                      ? "negative"
-                      : "positive"
-                  }
-                >
-                  {typeof asset.usd_price_24hr_percent_change === "number"
-                    ? Number(asset.usd_price_24hr_percent_change).toFixed(2)
-                    : asset.usd_price_24hr_percent_change}
-                  %
-                </td>
+        <div className="container">
+          {Object.keys(netWorthData).map((chain) => (
+            <p key={chain} className="net-worth">
+              Net Worth ({chain}): {netWorthData[chain]}
+            </p>
+          ))}
+          <p className="net-worth">
+            Total Net Worth: {totalNetWorth}
+          </p>
+          <table>
+            <thead>
+              <tr>
+                <th>Logo</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Value</th>
+                <th>24h Change</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {assets.map((asset) => (
+                <tr key={asset.token_address}>
+                  <td>
+                    <img
+                      src={asset.thumbnail}
+                      alt={asset.name}
+                      className="asset-logo"
+                    />
+                  </td>
+                  <td>{asset.name}</td>
+                  <td>{Number(asset.usd_price).toFixed(2)}</td>
+                  <td>
+                    {typeof asset.balance_formatted === "number"
+                      ? Number(asset.balance_formatted).toFixed(2)
+                      : asset.balance_formatted}
+                  </td>
+                  <td
+                    className={
+                      asset.usd_price_24hr_percent_change < 0
+                        ? "negative"
+                        : "positive"
+                    }
+                  >
+                    {typeof asset.usd_price_24hr_percent_change === "number"
+                      ? Number(asset.usd_price_24hr_percent_change).toFixed(2)
+                      : asset.usd_price_24hr_percent_change}
+                    %
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );
