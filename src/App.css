@@ -1,3 +1,5 @@
+/* Original CSS for the App */
+
 body {
   background-color: #333; /* Dark background */
 }
@@ -74,3 +76,75 @@ th {
   border-radius: 5px;
   cursor: pointer;
 }
+
+/* Additional styles */
+
+.net-worth {
+  margin-top: 20px;
+  font-size: 20px;
+  color: #fff; /* White text color */
+}
+
+.error {
+  color: #bf5050; /* Dark red text color */
+}
+
+.center {
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Responsive design for smaller screens */
+
+@media (max-width: 600px) {
+  .search-container {
+    flex-direction: column;
+  }
+  
+  .input-field,
+  .select-field,
+  .button {
+    margin: 10px 0;
+  }
+}
+
+/* Additional CSS for displaying net worth of chains in a row with blue-bordered boxes */
+
+.chain-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.chain-container {
+  padding: 20px;
+  border: 2px solid blue; /* Blue border */
+  border-radius: 10px;
+  text-align: center;
+  width: 22%; /* Adjust width to fit four chains in a row with spacing */
+}
+
+.chain-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: blue; /* Blue text color */
+}
+
+.chain-logo {
+  width: 50px;
+  height: 50px;
+  margin-top: 10px;
+}
+
+.net-worth {
+  margin-top: 10px;
+  font-size: 16px;
+  color: blue; /* Blue text color */
+}
+
+/* End of additional CSS */
