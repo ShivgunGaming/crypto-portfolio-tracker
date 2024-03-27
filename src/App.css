@@ -79,42 +79,6 @@ th {
 
 /* Additional styles */
 
-.net-worth {
-  margin-top: 20px;
-  font-size: 20px;
-  color: #fff; /* White text color */
-}
-
-.error {
-  color: #bf5050; /* Dark red text color */
-}
-
-.center {
-  text-align: center;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Responsive design for smaller screens */
-
-@media (max-width: 600px) {
-  .search-container {
-    flex-direction: column;
-  }
-  
-  .input-field,
-  .select-field,
-  .button {
-    margin: 10px 0;
-  }
-}
-
-/* Additional CSS for displaying net worth of chains in a row with blue-bordered boxes */
-
 .chain-wrapper {
   display: flex;
   justify-content: space-between;
@@ -123,7 +87,7 @@ th {
 
 .chain-container {
   padding: 20px;
-  border: 2px solid blue; /* Blue border */
+  border: 2px solid rgb(34, 235, 229); /* Blue border */
   border-radius: 10px;
   text-align: center;
   width: 22%; /* Adjust width to fit four chains in a row with spacing */
@@ -132,7 +96,7 @@ th {
 .chain-name {
   font-size: 18px;
   font-weight: bold;
-  color: blue; /* Blue text color */
+  color: white
 }
 
 .chain-logo {
