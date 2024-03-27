@@ -7,14 +7,20 @@ function App() {
   const [selectedChain, setSelectedChain] = useState("eth");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [cachedAssets, setCachedAssets] = useState({});
   const [netWorthData, setNetWorthData] = useState({});
   const [totalNetWorth, setTotalNetWorth] = useState(0);
 
   const fetchAssets = async (address, chain) => {
+    if (cachedAssets[chain]) {
+      setAssets(cachedAssets[chain]);
+      return;
+    }
+
     try {
       setLoading(true);
       const response = await fetch(
-        `https://deep-index.moralis.io/api/v2.2/wallets/${address}/tokens?chain=${chain}`,
+        `https://deep-index.moralis.io/api/v2.2/wallets/${address}/tokens?chain=${chain}&fields=name,thumbnail,usd_price,usd_price_24hr_percent_change`,
         {
           method: "GET",
           headers: {
@@ -32,12 +38,56 @@ function App() {
         chain: chain,
       }));
       setAssets(formattedAssets);
+      setCachedAssets({ ...cachedAssets, [chain]: formattedAssets });
       setLoading(false);
       setError(null);
     } catch (error) {
       console.error("Error fetching assets:", error);
       setLoading(false);
-      setError("Failed to fetch assets. Please check your address and try again.");
+      setError(
+        "Failed to fetch assets. Please check your address and try again."
+      );
+    }
+  };
+
+  const fetchNetWorth = async (address) => {
+    try {
+      setLoading(true);
+      const chains = ["eth", "bsc", "matic", "avalanche"];
+      const netWorthData = {};
+
+      await Promise.all(
+        chains.map(async (chain) => {
+          const response = await fetch(
+            `https://deep-index.moralis.io/api/v2.2/wallets/${address}/net-worth?chains=${chain}&exclude_spam=true&exclude_unverified_contracts=true`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                "X-API-Key": process.env.REACT_APP_MORALIS_API_KEY,
+              },
+            }
+          );
+          if (!response.ok) {
+            throw new Error(`Failed to fetch net worth for ${chain}`);
+          }
+          const data = await response.json();
+          netWorthData[chain] = parseFloat(data.total_networth_usd);
+        })
+      );
+
+      setNetWorthData(netWorthData);
+
+      const totalNetWorthValue = Object.values(netWorthData).reduce(
+        (total, value) => total + value,
+        0
+      );
+      setTotalNetWorth(totalNetWorthValue.toFixed(2));
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching net worth:", error);
+      setLoading(false);
+      setError("Failed to fetch net worth data. Please try again.");
     }
   };
 
@@ -47,38 +97,6 @@ function App() {
       fetchNetWorth(address);
     }
   }, [address, selectedChain]);
-
-  const fetchNetWorth = async (address) => {
-    try {
-      const chains = ["eth", "bsc", "matic", "avalanche"];
-      const netWorthData = {};
-
-      await Promise.all(chains.map(async (chain) => {
-        const response = await fetch(
-          `https://deep-index.moralis.io/api/v2.2/wallets/${address}/net-worth?chains=${chain}&exclude_spam=true&exclude_unverified_contracts=true`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "X-API-Key": process.env.REACT_APP_MORALIS_API_KEY,
-            },
-          }
-        );
-        if (!response.ok) {
-          throw new Error(`Failed to fetch net worth for ${chain}`);
-        }
-        const data = await response.json();
-        netWorthData[chain] = parseFloat(data.total_networth_usd);
-      }));
-
-      setNetWorthData(netWorthData);
-
-      const totalNetWorthValue = Object.values(netWorthData).reduce((total, value) => total + value, 0);
-      setTotalNetWorth(totalNetWorthValue.toFixed(2));
-    } catch (error) {
-      console.error("Error fetching net worth:", error);
-    }
-  };
 
   const handleInputChange = (e) => {
     setAddress(e.target.value);
@@ -125,14 +143,23 @@ function App() {
         <p className="center">Loading assets...</p>
       ) : (
         <div className="container">
-          {Object.keys(netWorthData).map((chain) => (
-            <p key={chain} className="net-worth">
-              Net Worth ({chain}): {netWorthData[chain]}
-            </p>
-          ))}
-          <p className="net-worth">
-            Total Net Worth: {totalNetWorth}
-          </p>
+          <div className="chain-wrapper">
+            {Object.keys(netWorthData).map((chain) => (
+              <div key={chain} className="chain-container">
+                <p className="chain-name">{chain.toUpperCase()}</p>
+                {/* Using specific image filenames */}
+                <img
+                  src={`${chain}.png`}
+                  alt={chain.toUpperCase()}
+                  className="chain-logo"
+                  style={{ width: "100px", height: "100px" }} // Adjust width and height as needed
+                />
+                <p className="net-worth">Net Worth: ${netWorthData[chain]}</p>
+              </div>
+            ))}
+          </div>
+
+          <p className="net-worth">Total Net Worth: ${totalNetWorth}</p>
           <table>
             <thead>
               <tr>
