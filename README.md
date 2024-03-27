@@ -49,4 +49,4 @@ Moralis APIs powers crypto and blockchain applications for millions of end users
 
 ## Learn More!
 
-https://moralis.io/
+https://moralis.io
