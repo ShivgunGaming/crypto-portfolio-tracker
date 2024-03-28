@@ -86,12 +86,15 @@ th {
 }
 
 .chain-container {
-  padding: 20px;
-  border: 2px solid rgb(34, 235, 229); /* Blue border */
+  margin: 20px; /* Add margin to create spacing between containers */
+  border: 5px solid rgb(34, 235, 229); /* Blue border */
   border-radius: 10px;
   text-align: center;
-  width: 22%; /* Adjust width to fit four chains in a row with spacing */
+  width: calc(22% - 40px); /* Adjust width to fit four chains in a row with spacing */
+  box-shadow: 0 0 10px rgba(34, 235, 229, 0.8); /* Neon glow effect with reduced intensity */
 }
+
+
 
 .chain-name {
   font-size: 18px;
@@ -107,8 +110,11 @@ th {
 
 .net-worth {
   margin-top: 10px;
-  font-size: 16px;
-  color: blue; /* Blue text color */
+  font-size: 24px; /* Increased font size */
+  color: white; /* White text color */
+  font-weight: bold; /* Bold font */
+  text-align: center; /* Center text */
 }
+
 
 /* End of additional CSS */

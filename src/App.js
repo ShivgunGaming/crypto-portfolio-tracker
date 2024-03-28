@@ -154,7 +154,7 @@ function App() {
                   className="chain-logo"
                   style={{ width: "100px", height: "100px" }} // Adjust width and height as needed
                 />
-                <p className="net-worth">Net Worth: ${netWorthData[chain]}</p>
+                <p style={{ color: "white" }} className="net-worth">Net Worth: ${netWorthData[chain]}</p>
               </div>
             ))}
           </div>
