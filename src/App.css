@@ -15,7 +15,7 @@ body {
 
 h1 {
   text-align: center;
-  color: darkgreen; /* Dark green title color */
+  color: #FF1493; /* Dark green title color */
 }
 
 table {
@@ -32,7 +32,7 @@ td {
 }
 
 th {
-  background-color: darkgreen; /* Dark green header background */
+  background-color: #FF1493; /* Dark green header background */
   color: #fff; /* White text color */
 }
 
@@ -70,7 +70,7 @@ th {
 .button {
   padding: 10px 20px;
   font-size: 16px;
-  background-color: darkgreen; /* Dark green button background */
+  background-color: #FF1493; /* Dark green button background */
   color: #fff; /* White text color */
   border: none;
   border-radius: 5px;
@@ -87,11 +87,11 @@ th {
 
 .chain-container {
   margin: 20px; /* Add margin to create spacing between containers */
-  border: 5px solid rgb(34, 235, 229); /* Blue border */
+  border: 5px solid #FF1493; /* Blue border */
   border-radius: 10px;
   text-align: center;
   width: calc(22% - 40px); /* Adjust width to fit four chains in a row with spacing */
-  box-shadow: 0 0 10px rgba(34, 235, 229, 0.8); /* Neon glow effect with reduced intensity */
+  box-shadow: 0 0 10px #FF1493; /* Neon glow effect with reduced intensity */
 }
 
 
