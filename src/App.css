@@ -1,21 +1,19 @@
-/* Original CSS for the App */
-
 body {
-  background-color: #333; /* Dark background */
+  background-color: #1a1a1a; /* Dark background */
 }
 
 .App {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   padding: 20px;
-  background-color: #333; /* Darker background */
-  color: #eee; /* Light text color */
+  background-color: #1a1a1a; /* Dark background */
+  color: #ccc; /* Light text color */
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Darker box shadow */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Lighter box shadow */
 }
 
 h1 {
   text-align: center;
-  color: #FF1493; /* Dark green title color */
+  color: #ffcc00; /* Yellow title color */
 }
 
 table {
@@ -28,12 +26,12 @@ th,
 td {
   padding: 10px;
   text-align: left;
-  border-bottom: 1px solid #555; /* Darker gray border */
+  border-bottom: 1px solid #333; /* Darker gray border */
 }
 
 th {
-  background-color: #FF1493; /* Dark green header background */
-  color: #fff; /* White text color */
+  background-color: #ffcc00; /* Yellow header background */
+  color: #333; /* Dark text color */
 }
 
 .asset-logo {
@@ -42,11 +40,11 @@ th {
 }
 
 .positive {
-  color: #4fbf67; /* Dark green text color for positive change */
+  color: #3cb371; /* Medium sea green text color for positive change */
 }
 
 .negative {
-  color: #bf5050; /* Dark red text color for negative change */
+  color: #ff6347; /* Tomato red text color for negative change */
 }
 
 .search-container {
@@ -60,18 +58,18 @@ th {
 .select-field {
   padding: 10px;
   font-size: 16px;
-  border: 2px solid #555; /* Darker gray border */
+  border: 2px solid #333; /* Darker gray border */
   border-radius: 5px;
   margin-right: 10px;
-  background-color: #444; /* Darker input background */
-  color: #eee; /* Light input text color */
+  background-color: #333; /* Darker input background */
+  color: #ccc; /* Light input text color */
 }
 
 .button {
   padding: 10px 20px;
   font-size: 16px;
-  background-color: #FF1493; /* Dark green button background */
-  color: #fff; /* White text color */
+  background-color: #ffcc00; /* Yellow button background */
+  color: #333; /* Dark text color */
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -87,19 +85,17 @@ th {
 
 .chain-container {
   margin: 20px; /* Add margin to create spacing between containers */
-  border: 5px solid #FF1493; /* Blue border */
+  border: 5px solid #ffcc00; /* Yellow border */
   border-radius: 10px;
   text-align: center;
   width: calc(22% - 40px); /* Adjust width to fit four chains in a row with spacing */
-  box-shadow: 0 0 10px #FF1493; /* Neon glow effect with reduced intensity */
+  box-shadow: 0 0 10px #ffcc00; /* Neon glow effect with reduced intensity */
 }
-
-
 
 .chain-name {
   font-size: 18px;
   font-weight: bold;
-  color: white
+  color: #ffcc00; /* Yellow chain name color */
 }
 
 .chain-logo {
@@ -111,10 +107,23 @@ th {
 .net-worth {
   margin-top: 10px;
   font-size: 24px; /* Increased font size */
-  color: white; /* White text color */
+  color: #ffcc00; /* Yellow text color */
   font-weight: bold; /* Bold font */
   text-align: center; /* Center text */
 }
 
+.button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #ffcc00; /* Yellow button background */
+  color: #333; /* Dark text color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
-/* End of additional CSS */
+/* Dark mode styles */
+.dark-mode {
+  background-color: #fff; /* Light background */
+  color: #333; /* Dark text color */
+}
