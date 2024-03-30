@@ -10,10 +10,24 @@ function App() {
   const [cachedAssets, setCachedAssets] = useState({});
   const [netWorthData, setNetWorthData] = useState({});
   const [totalNetWorth, setTotalNetWorth] = useState(0);
+  const [darkMode, setDarkMode] = useState(false); // 1. State variable for dark mode
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode); // 2. Function to toggle dark mode
+  };
+
+  useEffect(() => {
+    // 3. Update body class based on dark mode state
+    if (darkMode) {
+      document.body.classList.add("dark-mode");
+    } else {
+      document.body.classList.remove("dark-mode");
+    }
+  }, [darkMode]);
 
   const fetchAssets = async (address, chain) => {
-    if (cachedAssets[chain]) {
-      setAssets(cachedAssets[chain]);
+    if (cachedAssets[address] && cachedAssets[address][chain]) {
+      setAssets(cachedAssets[address][chain]);
       return;
     }
 
@@ -38,7 +52,16 @@ function App() {
         chain: chain,
       }));
       setAssets(formattedAssets);
-      setCachedAssets({ ...cachedAssets, [chain]: formattedAssets });
+
+      // Update cachedAssets state
+      setCachedAssets({
+        ...cachedAssets,
+        [address]: {
+          ...cachedAssets[address],
+          [chain]: formattedAssets,
+        },
+      });
+
       setLoading(false);
       setError(null);
     } catch (error) {
@@ -114,8 +137,9 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className={`App ${darkMode ? 'dark' : ''}`}>
       <h1>Crypto Tracker</h1>
+      <button onClick={toggleDarkMode}>{darkMode ? 'Light Mode' : 'Dark Mode'}</button>
       <div className="search-container">
         <input
           type="text"
@@ -147,14 +171,15 @@ function App() {
             {Object.keys(netWorthData).map((chain) => (
               <div key={chain} className="chain-container">
                 <p className="chain-name">{chain.toUpperCase()}</p>
-                {/* Using specific image filenames */}
                 <img
                   src={`${chain}.png`}
                   alt={chain.toUpperCase()}
                   className="chain-logo"
-                  style={{ width: "100px", height: "100px" }} // Adjust width and height as needed
+                  style={{ width: "100px", height: "100px" }}
                 />
-                <p style={{ color: "white" }} className="net-worth">Net Worth: ${netWorthData[chain]}</p>
+                <p style={{ color: "white" }} className="net-worth">
+                  Net Worth: ${netWorthData[chain]}
+                </p>
               </div>
             ))}
           </div>
