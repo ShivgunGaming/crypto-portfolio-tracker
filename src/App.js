@@ -137,9 +137,11 @@ function App() {
   };
 
   return (
-    <div className={`App ${darkMode ? 'dark' : ''}`}>
-      <h1>Crypto Tracker</h1>
-      <button onClick={toggleDarkMode}>{darkMode ? 'Light Mode' : 'Dark Mode'}</button>
+    <div className={`App ${darkMode ? "dark-mode" : ""}`}>
+      <h1 style={{ color: darkMode ? "#ffcc00" : "#333" }}>Crypto Tracker</h1>
+      <button onClick={toggleDarkMode}>
+        {darkMode ? "Light Mode" : "Dark Mode"}
+      </button>
       <div className="search-container">
         <input
           type="text"
@@ -170,21 +172,40 @@ function App() {
           <div className="chain-wrapper">
             {Object.keys(netWorthData).map((chain) => (
               <div key={chain} className="chain-container">
-                <p className="chain-name">{chain.toUpperCase()}</p>
+                <p
+                  className="chain-name"
+                  style={{ color: darkMode ? "#ffcc00" : "#333" }}
+                >
+                  {chain.toUpperCase()}
+                </p>
                 <img
                   src={`${chain}.png`}
                   alt={chain.toUpperCase()}
                   className="chain-logo"
                   style={{ width: "100px", height: "100px" }}
                 />
-                <p style={{ color: "white" }} className="net-worth">
+                <p
+                  style={{ color: darkMode ? "#ffcc00" : "#333" }}
+                  className="chain-worth"
+                >
                   Net Worth: ${netWorthData[chain]}
                 </p>
               </div>
             ))}
           </div>
 
-          <p className="net-worth">Total Net Worth: ${totalNetWorth}</p>
+          <p
+            className="net-worth"
+            style={{
+              fontSize: "20px",
+              color: darkMode ? "#ffcc00" : "#333", // Adjusted color based on theme mode
+              fontWeight: "bold",
+              textAlign: "center",
+            }}
+          >
+            Total Net Worth: ${totalNetWorth}
+          </p>
+
           <table>
             <thead>
               <tr>
