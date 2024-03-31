@@ -1,14 +1,15 @@
+/* General styles */
 body {
-  background-color: #1a1a1a; /* Dark background */
+  background-color: #fff; /* Light background */
 }
 
 .App {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   padding: 20px;
-  background-color: #1a1a1a; /* Dark background */
-  color: #ccc; /* Light text color */
+  background-color: #fff; /* Light background */
+  color: #333; /* Dark text color */
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Lighter box shadow */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Lighter box shadow */
 }
 
 h1 {
@@ -26,7 +27,7 @@ th,
 td {
   padding: 10px;
   text-align: left;
-  border-bottom: 1px solid #333; /* Darker gray border */
+  border-bottom: 1px solid #ccc; /* Lighter gray border */
 }
 
 th {
@@ -54,15 +55,24 @@ th {
   margin-bottom: 20px;
 }
 
-.input-field,
+.input-field {
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #ccc; /* Lighter gray border */
+  border-radius: 5px;
+  margin-right: 10px;
+  background-color: #f5f5f5; /* Lighter input background */
+  color: #333; /* Dark input text color */
+}
+
 .select-field {
   padding: 10px;
   font-size: 16px;
-  border: 2px solid #333; /* Darker gray border */
+  border: 2px solid #ccc; /* Lighter gray border */
   border-radius: 5px;
   margin-right: 10px;
-  background-color: #333; /* Darker input background */
-  color: #ccc; /* Light input text color */
+  background-color: #f5f5f5; /* Lighter input background */
+  color: black; /* Dark input text color */
 }
 
 .button {
@@ -75,8 +85,6 @@ th {
   cursor: pointer;
 }
 
-/* Additional styles */
-
 .chain-wrapper {
   display: flex;
   justify-content: space-between;
@@ -84,12 +92,13 @@ th {
 }
 
 .chain-container {
-  margin: 20px; /* Add margin to create spacing between containers */
-  border: 5px solid #ffcc00; /* Yellow border */
+  margin: 20px;
+  padding: 20px;
+  border: 2px solid #ffcc00; /* Yellow border */
   border-radius: 10px;
   text-align: center;
-  width: calc(22% - 40px); /* Adjust width to fit four chains in a row with spacing */
-  box-shadow: 0 0 10px #ffcc00; /* Neon glow effect with reduced intensity */
+  width: 22%; /* Fixed width for each container */
+  box-shadow: 0 0 10px rgba(255, 204, 0, 0.5); /* Neon glow effect */
 }
 
 .chain-name {
@@ -99,31 +108,61 @@ th {
 }
 
 .chain-logo {
-  width: 50px;
-  height: 50px;
+  width: 80px; /* Increased logo size */
+  height: 80px; /* Increased logo size */
   margin-top: 10px;
 }
 
-.net-worth {
+.chain-worth {
   margin-top: 10px;
-  font-size: 24px; /* Increased font size */
-  color: #ffcc00; /* Yellow text color */
-  font-weight: bold; /* Bold font */
-  text-align: center; /* Center text */
-}
-
-.button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #ffcc00; /* Yellow button background */
+  font-size: 20px; /* Adjusted font size */
   color: #333; /* Dark text color */
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  font-weight: bold; /* Bold font */
+}
+
+/* Net worth styles */
+.net-worth-container {
+  margin-top: 20px;
+  font-size: 24px;
+  color: #333;
+  font-weight: bold;
+  text-align: center;
+}
+
+.total-net-worth {
+  margin-top: 10px;
+  font-size: 28px;
+  color: #ffcc00; /* Yellow color for total net worth */
+  font-weight: bold;
+  text-align: center;
 }
 
 /* Dark mode styles */
 .dark-mode {
-  background-color: #fff; /* Light background */
+  background-color: #333; /* Dark background */
+  color: #ccc; /* Light text color */
+}
+
+.dark-mode .input-field,
+.dark-mode .select-field {
+  background-color: #333; /* Darker input background in dark mode */
+  border: 2px solid #ccc; /* Lighter gray border in dark mode */
+  color: white;
+}
+
+.dark-mode th {
+  background-color: #ffcc00; /* Yellow header background */
   color: #333; /* Dark text color */
+}
+
+.dark-mode .error {
+  color: #ff6347; /* Tomato red error text color */
+}
+
+.dark-mode .positive {
+  color: #3cb371; /* Medium sea green text color for positive change */
+}
+
+.dark-mode .negative {
+  color: #ff6347; /* Tomato red text color for negative change */
 }
