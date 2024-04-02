@@ -138,9 +138,9 @@ function App() {
 
   return (
     <div className={`App ${darkMode ? "dark-mode" : ""}`}>
-      <h1 style={{ color: darkMode ? "#ffcc00" : "#333" }}>Crypto Tracker</h1>
-      <button onClick={toggleDarkMode}>
-        {darkMode ? "Light Mode" : "Dark Mode"}
+      <h1 style={{ color: darkMode ? "#FF1493" : "#333" }}>Crypto Tracker</h1>
+      <button className="dark-theme" onClick={toggleDarkMode}>
+        {darkMode ? "☀️" : "🌙"}
       </button>
       <div className="search-container">
         <input
@@ -174,7 +174,7 @@ function App() {
               <div key={chain} className="chain-container">
                 <p
                   className="chain-name"
-                  style={{ color: darkMode ? "#ffcc00" : "#333" }}
+                  style={{ color: darkMode ? "#FF1493" : "#333" }}
                 >
                   {chain.toUpperCase()}
                 </p>
@@ -185,7 +185,7 @@ function App() {
                   style={{ width: "100px", height: "100px" }}
                 />
                 <p
-                  style={{ color: darkMode ? "#ffcc00" : "#333" }}
+                  style={{ color: darkMode ? "#FF1493" : "#333" }}
                   className="chain-worth"
                 >
                   Net Worth: ${netWorthData[chain]}
@@ -198,7 +198,7 @@ function App() {
             className="net-worth"
             style={{
               fontSize: "20px",
-              color: darkMode ? "#ffcc00" : "#333", // Adjusted color based on theme mode
+              color: darkMode ? "#FF1493" : "#333", // Adjusted color based on theme mode
               fontWeight: "bold",
               textAlign: "center",
             }}
