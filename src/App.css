@@ -14,7 +14,7 @@ body {
 
 h1 {
   text-align: center;
-  color: #ffcc00; /* Yellow title color */
+  color: #FF1493; /* Yellow title color */
 }
 
 table {
@@ -31,7 +31,7 @@ td {
 }
 
 th {
-  background-color: #ffcc00; /* Yellow header background */
+  background-color: #FF1493; /* Yellow header background */
   color: #333; /* Dark text color */
 }
 
@@ -78,11 +78,27 @@ th {
 .button {
   padding: 10px 20px;
   font-size: 16px;
-  background-color: #ffcc00; /* Yellow button background */
+  background-color: #FF1493; /* Yellow button background */
   color: #333; /* Dark text color */
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.dark-theme {
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #FF1493;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.dark-theme:hover {
+  background-color: #FF1493;
+  color: #fff;
 }
 
 .chain-wrapper {
@@ -94,7 +110,7 @@ th {
 .chain-container {
   margin: 20px;
   padding: 20px;
-  border: 2px solid #ffcc00; /* Yellow border */
+  border: 2px solid #FF1493; /* Yellow border */
   border-radius: 10px;
   text-align: center;
   width: 22%; /* Fixed width for each container */
@@ -104,7 +120,7 @@ th {
 .chain-name {
   font-size: 18px;
   font-weight: bold;
-  color: #ffcc00; /* Yellow chain name color */
+  color: #FF1493; /* Yellow chain name color */
 }
 
 .chain-logo {
@@ -132,7 +148,7 @@ th {
 .total-net-worth {
   margin-top: 10px;
   font-size: 28px;
-  color: #ffcc00; /* Yellow color for total net worth */
+  color: #FF1493; /* Yellow color for total net worth */
   font-weight: bold;
   text-align: center;
 }
@@ -151,7 +167,7 @@ th {
 }
 
 .dark-mode th {
-  background-color: #ffcc00; /* Yellow header background */
+  background-color: #FF1493; /* Yellow header background */
   color: #333; /* Dark text color */
 }
 
