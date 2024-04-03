@@ -1,7 +1,21 @@
 /* General styles */
+/* General styles */
 body {
   background-color: #fff; /* Light background */
+  display: flex;
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
 }
+
+.button-container {
+  display: flex;
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  margin-bottom: 20px; /* Add margin to separate from the search container */
+}
+
+/* Rest of your CSS styles remain unchanged */
+
 
 .App {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
