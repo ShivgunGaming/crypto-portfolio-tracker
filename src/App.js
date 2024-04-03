@@ -139,9 +139,12 @@ function App() {
   return (
     <div className={`App ${darkMode ? "dark-mode" : ""}`}>
       <h1 style={{ color: darkMode ? "#FF1493" : "#333" }}>Crypto Tracker</h1>
-      <button className="dark-theme" onClick={toggleDarkMode}>
-        {darkMode ? "☀️" : "🌙"}
-      </button>
+      <div className="button-container">
+        <button className="dark-theme" onClick={toggleDarkMode}>
+          {darkMode ? "☀️" : "🌙"}
+        </button>
+      </div>
+
       <div className="search-container">
         <input
           type="text"
