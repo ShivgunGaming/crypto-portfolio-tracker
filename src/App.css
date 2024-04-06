@@ -196,3 +196,22 @@ th {
 .dark-mode .negative {
   color: #ff6347; /* Tomato red text color for negative change */
 }
+
+.nft-container {
+  margin-top: 20px;
+}
+
+.nft-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.nft-item {
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.nft-image {
+  width: 200px;
+  height: auto;
+}
