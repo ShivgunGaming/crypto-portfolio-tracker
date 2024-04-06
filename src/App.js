@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [assets, setAssets] = useState([]);
+  const [nfts, setNFTs] = useState([]);
   const [address, setAddress] = useState("");
   const [selectedChain, setSelectedChain] = useState("eth");
   const [loading, setLoading] = useState(false);
@@ -10,14 +11,14 @@ function App() {
   const [cachedAssets, setCachedAssets] = useState({});
   const [netWorthData, setNetWorthData] = useState({});
   const [totalNetWorth, setTotalNetWorth] = useState(0);
-  const [darkMode, setDarkMode] = useState(false); // 1. State variable for dark mode
+  const [darkMode, setDarkMode] = useState(false);
+  const [collections, setCollections] = useState([]);
 
   const toggleDarkMode = () => {
-    setDarkMode(!darkMode); // 2. Function to toggle dark mode
+    setDarkMode(!darkMode);
   };
 
   useEffect(() => {
-    // 3. Update body class based on dark mode state
     if (darkMode) {
       document.body.classList.add("dark-mode");
     } else {
@@ -53,7 +54,40 @@ function App() {
       }));
       setAssets(formattedAssets);
 
-      // Update cachedAssets state
+      const nftResponse = await fetch(
+        `https://deep-index.moralis.io/api/v2.2/${address}/nft?chain=${chain}&format=decimal&media_items=false`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "X-API-Key": process.env.REACT_APP_MORALIS_API_KEY,
+          },
+        }
+      );
+      if (!nftResponse.ok) {
+        throw new Error("Failed to fetch NFTs");
+      }
+      const nftData = await nftResponse.json();
+      setNFTs(nftData.result);
+
+      const collectionsResponse = await fetch(
+        `https://deep-index.moralis.io/api/v2.2/${address}/nft/collections?chain=${chain}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "X-API-Key": process.env.REACT_APP_MORALIS_API_KEY,
+          },
+        }
+      );
+      if (!collectionsResponse.ok) {
+        throw new Error("Failed to fetch NFT collections");
+      }
+      const collectionsData = await collectionsResponse.json();
+      // Filter out scam collections
+      const filteredCollections = collectionsData.result.filter(collection => collection.possible_spam === "false");
+      setCollections(filteredCollections);
+
       setCachedAssets({
         ...cachedAssets,
         [address]: {
@@ -201,13 +235,29 @@ function App() {
             className="net-worth"
             style={{
               fontSize: "20px",
-              color: darkMode ? "#FF1493" : "#333", // Adjusted color based on theme mode
+              color: darkMode ? "#FF1493" : "#333",
               fontWeight: "bold",
               textAlign: "center",
             }}
           >
             Total Net Worth: ${totalNetWorth}
           </p>
+
+          {/* Render NFTs */}
+          <div className="nft-container">
+            <h2>NFTs</h2>
+            <div className="nft-list">
+              {nfts.map((nft) => (
+                <div key={nft.token_hash} className="nft-item">
+                  {nft.media && (
+                    <img src={nft.media} alt={nft.name} className="nft-image" />
+                  )}
+                  <p>{nft.name}</p>
+                  <p>Token ID: {nft.token_id}</p>
+                </div>
+              ))}
+            </div>
+          </div>
 
           <table>
             <thead>
