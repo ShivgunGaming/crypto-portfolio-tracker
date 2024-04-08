@@ -222,20 +222,26 @@ th {
   text-align: center;
   width: 200px; /* Adjusted width for better alignment */
   box-shadow: 0 0 10px rgba(255, 20, 147, 0.5); /* Neon glow effect */
+  transition: transform 0.3s ease;
+}
+
+.collection-item:hover {
+  transform: translateY(-5px);
 }
 
 .collection-image {
   width: 80px; /* Reduced logo size */
   height: 80px; /* Reduced logo size */
+  border-radius: 50%;
 }
 
 /* Adjusted NFT Card styles */
 .nft-item {
   margin-right: 20px;
   margin-bottom: 20px;
-  background-color: #fff; /* White background */
+  background-color: #f9f9f9; /* Light gray background */
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Lighter box shadow */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Lighter box shadow */
   overflow: hidden;
   transition: transform 0.3s ease;
   width: 250px; /* Adjusted width for better alignment */
@@ -258,7 +264,7 @@ th {
 }
 
 .nft-title {
-  font-size: 16px; /* Reduced title font size */
+  font-size: 18px; /* Increased title font size */
   font-weight: bold;
   color: #333; /* Dark text color */
 }
@@ -270,7 +276,7 @@ th {
 
 .nft-price {
   margin-top: 10px;
-  font-size: 14px; /* Reduced price font size */
+  font-size: 16px; /* Increased price font size */
   color: #FF1493; /* Pink color */
   font-weight: bold;
 }
