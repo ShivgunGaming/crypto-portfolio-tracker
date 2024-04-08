@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [assets, setAssets] = useState([]);
-  const [nfts, setNFTs] = useState([]);
+  const [collections, setCollections] = useState([]);
   const [address, setAddress] = useState("");
   const [selectedChain, setSelectedChain] = useState("eth");
   const [loading, setLoading] = useState(false);
@@ -12,7 +12,8 @@ function App() {
   const [netWorthData, setNetWorthData] = useState({});
   const [totalNetWorth, setTotalNetWorth] = useState(0);
   const [darkMode, setDarkMode] = useState(false);
-  const [collections, setCollections] = useState([]);
+
+  const placeholderImage = "placeholder.jpeg"; // Path to your placeholder image
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
@@ -54,22 +55,6 @@ function App() {
       }));
       setAssets(formattedAssets);
 
-      const nftResponse = await fetch(
-        `https://deep-index.moralis.io/api/v2.2/${address}/nft?chain=${chain}&format=decimal&media_items=false`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "X-API-Key": process.env.REACT_APP_MORALIS_API_KEY,
-          },
-        }
-      );
-      if (!nftResponse.ok) {
-        throw new Error("Failed to fetch NFTs");
-      }
-      const nftData = await nftResponse.json();
-      setNFTs(nftData.result);
-
       const collectionsResponse = await fetch(
         `https://deep-index.moralis.io/api/v2.2/${address}/nft/collections?chain=${chain}`,
         {
@@ -81,12 +66,10 @@ function App() {
         }
       );
       if (!collectionsResponse.ok) {
-        throw new Error("Failed to fetch NFT collections");
+        throw new Error("Failed to fetch collections");
       }
       const collectionsData = await collectionsResponse.json();
-      // Filter out scam collections
-      const filteredCollections = collectionsData.result.filter(collection => collection.possible_spam === "false");
-      setCollections(filteredCollections);
+      setCollections(collectionsData.result);
 
       setCachedAssets({
         ...cachedAssets,
@@ -243,17 +226,27 @@ function App() {
             Total Net Worth: ${totalNetWorth}
           </p>
 
-          {/* Render NFTs */}
-          <div className="nft-container">
-            <h2>NFTs</h2>
-            <div className="nft-list">
-              {nfts.map((nft) => (
-                <div key={nft.token_hash} className="nft-item">
-                  {nft.media && (
-                    <img src={nft.media} alt={nft.name} className="nft-image" />
+          {/* Render NFT Collections */}
+          <div className="collection-container">
+            <h2>NFT Collections</h2>
+            <div className="collection-list">
+              {collections.map((collection) => (
+                <div key={collection.token_address} className="collection-item">
+                  {collection.collection_logo ? (
+                    <img
+                      src={collection.collection_logo}
+                      alt={collection.name}
+                      className="collection-image"
+                    />
+                  ) : (
+                    <img
+                      src={placeholderImage}
+                      alt="Placeholder"
+                      className="collection-image"
+                    />
                   )}
-                  <p>{nft.name}</p>
-                  <p>Token ID: {nft.token_id}</p>
+                  <p>{collection.name}</p>
+                  <p>Symbol: {collection.symbol}</p>
                 </div>
               ))}
             </div>
