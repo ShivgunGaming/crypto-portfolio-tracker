@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [assets, setAssets] = useState([]);
+  const [collections, setCollections] = useState([]);
   const [address, setAddress] = useState("");
   const [selectedChain, setSelectedChain] = useState("eth");
   const [loading, setLoading] = useState(false);
@@ -10,14 +11,13 @@ function App() {
   const [cachedAssets, setCachedAssets] = useState({});
   const [netWorthData, setNetWorthData] = useState({});
   const [totalNetWorth, setTotalNetWorth] = useState(0);
-  const [darkMode, setDarkMode] = useState(false); // 1. State variable for dark mode
+  const [darkMode, setDarkMode] = useState(false);
 
   const toggleDarkMode = () => {
-    setDarkMode(!darkMode); // 2. Function to toggle dark mode
+    setDarkMode(!darkMode);
   };
 
   useEffect(() => {
-    // 3. Update body class based on dark mode state
     if (darkMode) {
       document.body.classList.add("dark-mode");
     } else {
@@ -53,7 +53,22 @@ function App() {
       }));
       setAssets(formattedAssets);
 
-      // Update cachedAssets state
+      const collectionsResponse = await fetch(
+        `https://deep-index.moralis.io/api/v2.2/${address}/nft/collections?chain=${chain}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "X-API-Key": process.env.REACT_APP_MORALIS_API_KEY,
+          },
+        }
+      );
+      if (!collectionsResponse.ok) {
+        throw new Error("Failed to fetch collections");
+      }
+      const collectionsData = await collectionsResponse.json();
+      setCollections(collectionsData.result);
+
       setCachedAssets({
         ...cachedAssets,
         [address]: {
@@ -201,7 +216,7 @@ function App() {
             className="net-worth"
             style={{
               fontSize: "20px",
-              color: darkMode ? "#FF1493" : "#333", // Adjusted color based on theme mode
+              color: darkMode ? "#FF1493" : "#333",
               fontWeight: "bold",
               textAlign: "center",
             }}
@@ -254,6 +269,40 @@ function App() {
           </table>
         </div>
       )}
+      {/* Render NFT Collections */}
+      <div className="collection-container">
+        <h2
+          style={{
+            fontSize: "20px",
+            color: darkMode ? "#FF1493" : "#333",
+            fontWeight: "bold",
+            textAlign: "center",
+          }}
+        >
+          NFT Collections
+        </h2>
+        <div className="collection-list">
+          {collections.map((collection) => (
+            <div key={collection.token_address} className="collection-item">
+              {collection.collection_logo ? (
+                <img
+                  src={collection.collection_logo}
+                  alt={collection.name}
+                  className="collection-image"
+                />
+              ) : (
+                <img
+                  src="/placeholder.jpg" // Path relative to the public folder
+                  alt="Placeholder"
+                  className="collection-image"
+                />
+              )}
+              <p>{collection.name}</p>
+              <p>Symbol: {collection.symbol}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

@@ -128,7 +128,7 @@ th {
   border-radius: 10px;
   text-align: center;
   width: 22%; /* Fixed width for each container */
-  box-shadow: 0 0 10px rgba(255, 204, 0, 0.5); /* Neon glow effect */
+  box-shadow: 0 0 10px #FF1493; /* Neon glow effect */
 }
 
 .chain-name {
@@ -195,4 +195,105 @@ th {
 
 .dark-mode .negative {
   color: #ff6347; /* Tomato red text color for negative change */
+}
+
+/* Import any necessary CSS frameworks or reset styles */
+
+/* General styles */
+/* Ensure the rest of your existing CSS styles remain unchanged */
+
+/* NFT Collection styles */
+.collection-container {
+  margin-top: 40px; /* Increased margin for better separation */
+  text-align: center;
+}
+
+.collection-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.collection-item {
+  margin: 10px;
+  padding: 10px;
+  border: 2px solid #FF1493; /* Pink border */
+  border-radius: 10px;
+  text-align: center;
+  width: 200px; /* Adjusted width for better alignment */
+  box-shadow: 0 0 10px rgba(255, 20, 147, 0.5); /* Neon glow effect */
+  transition: transform 0.3s ease;
+}
+
+.collection-item:hover {
+  transform: translateY(-5px);
+}
+
+.collection-image {
+  width: 80px; /* Reduced logo size */
+  height: 80px; /* Reduced logo size */
+  border-radius: 50%;
+}
+
+/* Adjusted NFT Card styles */
+.nft-item {
+  margin-right: 20px;
+  margin-bottom: 20px;
+  background-color: #f9f9f9; /* Light gray background */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Lighter box shadow */
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  width: 250px; /* Adjusted width for better alignment */
+}
+
+.nft-item:hover {
+  transform: translateY(-5px);
+}
+
+.nft-image {
+  width: 100%;
+  height: 150px; /* Adjusted image height */
+  object-fit: cover; /* Ensure image covers the entire space */
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.nft-details {
+  padding: 20px;
+}
+
+.nft-title {
+  font-size: 18px; /* Increased title font size */
+  font-weight: bold;
+  color: #333; /* Dark text color */
+}
+
+.nft-description {
+  font-size: 14px;
+  color: #666; /* Light text color */
+}
+
+.nft-price {
+  margin-top: 10px;
+  font-size: 16px; /* Increased price font size */
+  color: #FF1493; /* Pink color */
+  font-weight: bold;
+}
+
+.nft-button {
+  display: block;
+  padding: 8px 16px; /* Reduced padding for buttons */
+  margin-top: 10px;
+  font-size: 14px;
+  background-color: #FF1493; /* Pink button background */
+  color: #fff; /* White text color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nft-button:hover {
+  background-color: #ff6b98; /* Lighter pink on hover */
 }
