@@ -13,8 +13,6 @@ function App() {
   const [totalNetWorth, setTotalNetWorth] = useState(0);
   const [darkMode, setDarkMode] = useState(false);
 
-  const placeholderImage = "placeholder.jpeg"; // Path to your placeholder image
-
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
@@ -226,32 +224,6 @@ function App() {
             Total Net Worth: ${totalNetWorth}
           </p>
 
-          {/* Render NFT Collections */}
-          <div className="collection-container">
-            <h2>NFT Collections</h2>
-            <div className="collection-list">
-              {collections.map((collection) => (
-                <div key={collection.token_address} className="collection-item">
-                  {collection.collection_logo ? (
-                    <img
-                      src={collection.collection_logo}
-                      alt={collection.name}
-                      className="collection-image"
-                    />
-                  ) : (
-                    <img
-                      src={placeholderImage}
-                      alt="Placeholder"
-                      className="collection-image"
-                    />
-                  )}
-                  <p>{collection.name}</p>
-                  <p>Symbol: {collection.symbol}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
           <table>
             <thead>
               <tr>
@@ -297,6 +269,40 @@ function App() {
           </table>
         </div>
       )}
+      {/* Render NFT Collections */}
+      <div className="collection-container">
+        <h2
+          style={{
+            fontSize: "20px",
+            color: darkMode ? "#FF1493" : "#333",
+            fontWeight: "bold",
+            textAlign: "center",
+          }}
+        >
+          NFT Collections
+        </h2>
+        <div className="collection-list">
+          {collections.map((collection) => (
+            <div key={collection.token_address} className="collection-item">
+              {collection.collection_logo ? (
+                <img
+                  src={collection.collection_logo}
+                  alt={collection.name}
+                  className="collection-image"
+                />
+              ) : (
+                <img
+                  src="/placeholder.jpg" // Path relative to the public folder
+                  alt="Placeholder"
+                  className="collection-image"
+                />
+              )}
+              <p>{collection.name}</p>
+              <p>Symbol: {collection.symbol}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
