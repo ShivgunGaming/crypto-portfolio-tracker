@@ -292,7 +292,7 @@ function App() {
                 />
               ) : (
                 <img
-                  src="/placeholder.jpg" // Path relative to the public folder
+                  src="/question.webp"
                   alt="Placeholder"
                   className="collection-image"
                 />
