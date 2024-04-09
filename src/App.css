@@ -128,7 +128,7 @@ th {
   border-radius: 10px;
   text-align: center;
   width: 22%; /* Fixed width for each container */
-  box-shadow: 0 0 10px rgba(255, 204, 0, 0.5); /* Neon glow effect */
+  box-shadow: 0 0 10px #FF1493; /* Neon glow effect */
 }
 
 .chain-name {
