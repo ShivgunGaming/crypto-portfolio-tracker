@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 function App() {
   const [assets, setAssets] = useState([]);
   const [collections, setCollections] = useState([]);
+  const [walletHistory, setWalletHistory] = useState([]); // New state for wallet history
   const [address, setAddress] = useState("");
   const [selectedChain, setSelectedChain] = useState("eth");
   const [loading, setLoading] = useState(false);
@@ -129,10 +130,38 @@ function App() {
     }
   };
 
+  const fetchWalletHistory = async (address) => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        `https://deep-index.moralis.io/api/v2.2/wallets/${address}/history`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "X-API-Key": process.env.REACT_APP_MORALIS_API_KEY,
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch wallet history");
+      }
+      const data = await response.json();
+      setWalletHistory(data.result);
+      setLoading(false);
+      setError(null);
+    } catch (error) {
+      console.error("Error fetching wallet history:", error);
+      setLoading(false);
+      setError("Failed to fetch wallet history. Please try again.");
+    }
+  };
+
   useEffect(() => {
     if (address.trim() !== "") {
       fetchAssets(address, selectedChain);
       fetchNetWorth(address);
+      fetchWalletHistory(address); // Fetch wallet history when address changes
     }
   }, [address, selectedChain]);
 
@@ -144,6 +173,7 @@ function App() {
     if (address.trim() !== "") {
       fetchAssets(address, selectedChain);
       fetchNetWorth(address);
+      fetchWalletHistory(address);
     }
   };
 
@@ -267,42 +297,78 @@ function App() {
               ))}
             </tbody>
           </table>
+
+          {/* NFT Collections */}
+          <div className="collection-container">
+            <h2
+              style={{
+                fontSize: "20px",
+                color: darkMode ? "#FF1493" : "#333",
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              NFT Collections
+            </h2>
+            <div className="collection-list">
+              {collections.map((collection) => (
+                <div key={collection.token_address} className="collection-item">
+                  {collection.collection_logo ? (
+                    <img
+                      src={collection.collection_logo}
+                      alt={collection.name}
+                      className="collection-image"
+                    />
+                  ) : (
+                    <img
+                      src="/question.webp"
+                      alt="Placeholder"
+                      className="collection-image"
+                    />
+                  )}
+                  <p>{collection.name}</p>
+                  <p>Symbol: {collection.symbol}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="wallet-history">
+            <h2
+              style={{
+                fontSize: "20px",
+                color: darkMode ? "#FF1493" : "#333",
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              Wallet History
+            </h2>
+            <ul>
+              {walletHistory.map((transaction, index) => (
+                <li key={index}>
+                  <p>Transaction Hash: {transaction.hash}</p>
+                  <p>From: {transaction.from_address}</p>
+                  <p>To: {transaction.to_address}</p>
+                  {/* Display transaction type */}
+                  {transaction.nft_transfers &&
+                    transaction.nft_transfers.length > 0 && (
+                      <p>Transaction Type: NFT Transfer</p>
+                    )}
+                  {transaction.erc20_transfer &&
+                    transaction.erc20_transfer.length > 0 && (
+                      <p>Transaction Type: ERC-20 Transfer</p>
+                    )}
+                  {transaction.native_transfers &&
+                    transaction.native_transfers.length > 0 && (
+                      <p>Transaction Type: Native Transfer</p>
+                    )}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       )}
-      {/* Render NFT Collections */}
-      <div className="collection-container">
-        <h2
-          style={{
-            fontSize: "20px",
-            color: darkMode ? "#FF1493" : "#333",
-            fontWeight: "bold",
-            textAlign: "center",
-          }}
-        >
-          NFT Collections
-        </h2>
-        <div className="collection-list">
-          {collections.map((collection) => (
-            <div key={collection.token_address} className="collection-item">
-              {collection.collection_logo ? (
-                <img
-                  src={collection.collection_logo}
-                  alt={collection.name}
-                  className="collection-image"
-                />
-              ) : (
-                <img
-                  src="/question.webp"
-                  alt="Placeholder"
-                  className="collection-image"
-                />
-              )}
-              <p>{collection.name}</p>
-              <p>Symbol: {collection.symbol}</p>
-            </div>
-          ))}
-        </div>
-      </div>
     </div>
   );
 }
