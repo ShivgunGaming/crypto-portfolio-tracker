@@ -298,35 +298,6 @@ function App() {
             </tbody>
           </table>
 
-          {/* Wallet History */}
-          <div className="wallet-history">
-            <h2>Wallet History</h2>
-            <ul>
-              {walletHistory.map((transaction, index) => (
-                <li key={index}>
-                  <p>Transaction Hash: {transaction.hash}</p>
-                  <p>From: {transaction.from_address}</p>
-                  <p>To: {transaction.to_address}</p>
-                  <p>Value: {transaction.value}</p>
-                  <p>Timestamp: {transaction.block_timestamp}</p>
-                  {/* Display transaction type */}
-                  {transaction.nft_transfers &&
-                    transaction.nft_transfers.length > 0 && (
-                      <p>Transaction Type: NFT Transfer</p>
-                    )}
-                  {transaction.erc20_transfer &&
-                    transaction.erc20_transfer.length > 0 && (
-                      <p>Transaction Type: ERC-20 Transfer</p>
-                    )}
-                  {transaction.native_transfers &&
-                    transaction.native_transfers.length > 0 && (
-                      <p>Transaction Type: Native Transfer</p>
-                    )}
-                </li>
-              ))}
-            </ul>
-          </div>
-
           {/* NFT Collections */}
           <div className="collection-container">
             <h2
@@ -360,6 +331,41 @@ function App() {
                 </div>
               ))}
             </div>
+          </div>
+
+          <div className="wallet-history">
+            <h2
+              style={{
+                fontSize: "20px",
+                color: darkMode ? "#FF1493" : "#333",
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              Wallet History
+            </h2>
+            <ul>
+              {walletHistory.map((transaction, index) => (
+                <li key={index}>
+                  <p>Transaction Hash: {transaction.hash}</p>
+                  <p>From: {transaction.from_address}</p>
+                  <p>To: {transaction.to_address}</p>
+                  {/* Display transaction type */}
+                  {transaction.nft_transfers &&
+                    transaction.nft_transfers.length > 0 && (
+                      <p>Transaction Type: NFT Transfer</p>
+                    )}
+                  {transaction.erc20_transfer &&
+                    transaction.erc20_transfer.length > 0 && (
+                      <p>Transaction Type: ERC-20 Transfer</p>
+                    )}
+                  {transaction.native_transfers &&
+                    transaction.native_transfers.length > 0 && (
+                      <p>Transaction Type: Native Transfer</p>
+                    )}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       )}
