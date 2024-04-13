@@ -1,5 +1,4 @@
 /* General styles */
-/* General styles */
 body {
   background-color: #fff; /* Light background */
   display: flex;
@@ -14,9 +13,7 @@ body {
   margin-bottom: 20px; /* Add margin to separate from the search container */
 }
 
-/* Rest of your CSS styles remain unchanged */
-
-
+/* Main App Styles */
 .App {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   padding: 20px;
@@ -115,12 +112,14 @@ th {
   color: #fff;
 }
 
+/* Chain wrapper */
 .chain-wrapper {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
 }
 
+/* Chain container */
 .chain-container {
   margin: 20px;
   padding: 20px;
@@ -131,18 +130,21 @@ th {
   box-shadow: 0 0 10px #FF1493; /* Neon glow effect */
 }
 
+/* Chain name */
 .chain-name {
   font-size: 18px;
   font-weight: bold;
   color: #FF1493; /* Yellow chain name color */
 }
 
+/* Chain logo */
 .chain-logo {
   width: 80px; /* Increased logo size */
   height: 80px; /* Increased logo size */
   margin-top: 10px;
 }
 
+/* Chain worth */
 .chain-worth {
   margin-top: 10px;
   font-size: 20px; /* Adjusted font size */
@@ -150,7 +152,7 @@ th {
   font-weight: bold; /* Bold font */
 }
 
-/* Net worth styles */
+/* Net worth container */
 .net-worth-container {
   margin-top: 20px;
   font-size: 24px;
@@ -159,6 +161,7 @@ th {
   text-align: center;
 }
 
+/* Total net worth */
 .total-net-worth {
   margin-top: 10px;
   font-size: 28px;
@@ -197,23 +200,20 @@ th {
   color: #ff6347; /* Tomato red text color for negative change */
 }
 
-/* Import any necessary CSS frameworks or reset styles */
-
-/* General styles */
-/* Ensure the rest of your existing CSS styles remain unchanged */
-
-/* NFT Collection styles */
+/* NFT collection container */
 .collection-container {
   margin-top: 40px; /* Increased margin for better separation */
   text-align: center;
 }
 
+/* NFT collection list */
 .collection-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
+/* NFT collection item */
 .collection-item {
   margin: 10px;
   padding: 10px;
@@ -225,75 +225,76 @@ th {
   transition: transform 0.3s ease;
 }
 
+/* NFT collection item hover effect */
 .collection-item:hover {
   transform: translateY(-5px);
 }
 
+/* NFT collection image */
 .collection-image {
   width: 80px; /* Reduced logo size */
   height: 80px; /* Reduced logo size */
   border-radius: 50%;
 }
 
-/* Adjusted NFT Card styles */
-.nft-item {
-  margin-right: 20px;
-  margin-bottom: 20px;
-  background-color: #f9f9f9; /* Light gray background */
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Lighter box shadow */
-  overflow: hidden;
-  transition: transform 0.3s ease;
-  width: 250px; /* Adjusted width for better alignment */
+/* Wallet History styles */
+.wallet-history {
+  margin-top: 20px;
+  text-align: center; /* Center align the content */
 }
 
-.nft-item:hover {
-  transform: translateY(-5px);
+.wallet-history h2 {
+  font-size: 24px;
+  color: #FF1493; /* Match the title color with other components */
+  margin-bottom: 10px;
 }
 
-.nft-image {
-  width: 100%;
-  height: 150px; /* Adjusted image height */
-  object-fit: cover; /* Ensure image covers the entire space */
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+.wallet-history ul {
+  list-style: none;
+  padding: 0;
 }
 
-.nft-details {
-  padding: 20px;
+.wallet-history li {
+  border-bottom: 1px solid #FF1493; /* Match the border color with other components */
+  padding: 12px 0;
 }
 
-.nft-title {
-  font-size: 18px; /* Increased title font size */
-  font-weight: bold;
-  color: #333; /* Dark text color */
+.wallet-history li:last-child {
+  border-bottom: none; /* Remove border from last item */
 }
 
-.nft-description {
+.wallet-history p {
+  margin: 4px 0;
+}
+
+.wallet-history .transaction-meta {
+  display: flex;
+  justify-content: space-between;
+}
+
+.wallet-history .transaction-details {
+  flex-grow: 1;
+}
+
+.wallet-history .transaction-hash {
   font-size: 14px;
-  color: #666; /* Light text color */
+  color: #888; /* Lighter gray color for transaction hash */
 }
 
-.nft-price {
-  margin-top: 10px;
-  font-size: 16px; /* Increased price font size */
-  color: #FF1493; /* Pink color */
+.wallet-history .transaction-status {
   font-weight: bold;
+  text-transform: capitalize;
 }
 
-.nft-button {
-  display: block;
-  padding: 8px 16px; /* Reduced padding for buttons */
-  margin-top: 10px;
+.wallet-history .transaction-type {
   font-size: 14px;
-  background-color: #FF1493; /* Pink button background */
-  color: #fff; /* White text color */
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  color: #666; /* Darker gray color for transaction type */
 }
 
-.nft-button:hover {
-  background-color: #ff6b98; /* Lighter pink on hover */
+.wallet-history .transaction-value {
+  font-weight: bold;
+  color: #FF1493; /* Highlight value with a pink color */
+  /* Add commas as thousands separators and a decimal point for cents */
+  unicode-bidi: bidi-override;
+  direction: rtl;
 }
