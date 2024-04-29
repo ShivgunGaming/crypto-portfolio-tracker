@@ -14,6 +14,7 @@ function App() {
   const [totalNetWorth, setTotalNetWorth] = useState(0);
   const [darkMode, setDarkMode] = useState(false);
 
+
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
@@ -275,7 +276,7 @@ function App() {
                     />
                   </td>
                   <td>{asset.name}</td>
-                  <td>{Number(asset.usd_price).toFixed(2)}</td>
+                  <td>${Number(asset.usd_price).toFixed(2)}</td>
                   <td>
                     {typeof asset.balance_formatted === "number"
                       ? Number(asset.balance_formatted).toFixed(2)
