@@ -11,8 +11,11 @@ Crypto Tracker is a decentralized application (dApp) that allows users to track 
 
 ## Technologies Used 💻
 - **Frontend:** React.js
-- **API Integration:** Moralis Web3
+- **API Integration:** Moralis
 - **Styling:** CSS
+
+## Live Demo 🌐
+Check out the live demo of Crypto Tracker [here](https://crypto-portfolio-tracker-indol.vercel.app).
 
 ## Getting Started 🛠️
 To run the Crypto Tracker dApp locally, follow these steps:
@@ -32,6 +35,3 @@ To run the Crypto Tracker dApp locally, follow these steps:
 
 ## Contributing 🤝
 Contributions are welcome! Feel free to open issues or submit pull requests to improve the Crypto Tracker dApp.
-
-## License 📄
-This project is licensed under the MIT License.
