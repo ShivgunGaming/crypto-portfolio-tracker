@@ -15,7 +15,7 @@ Crypto Tracker is a decentralized application (dApp) that allows users to track 
 - **Styling:** CSS
 
 ## Live Demo 🌐
-Check out the live demo of Crypto Tracker [here](https://crypto-portfolio-tracker-indol.vercel.app){:target="_blank"}.
+Check out the live demo of Crypto Tracker <a href="https://crypto-portfolio-tracker-indol.vercel.app" target="_blank">here</a>.
 
 ## Getting Started 🛠️
 To run the Crypto Tracker dApp locally, follow these steps:
