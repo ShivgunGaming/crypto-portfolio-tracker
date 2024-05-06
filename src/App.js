@@ -14,7 +14,6 @@ function App() {
   const [totalNetWorth, setTotalNetWorth] = useState(0);
   const [darkMode, setDarkMode] = useState(false);
 
-
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
@@ -93,7 +92,7 @@ function App() {
   const fetchNetWorth = async (address) => {
     try {
       setLoading(true);
-      const chains = ["eth", "bsc", "matic", "avalanche"];
+      const chains = ["eth", "bsc", "matic", "avalanche", "fantom", "arbitrum", "optimism"];
       const netWorthData = {};
 
       await Promise.all(
@@ -182,6 +181,25 @@ function App() {
     setSelectedChain(e.target.value);
   };
 
+  // Function to determine transaction type icon
+  const getTransactionIcon = (transaction) => {
+    if (transaction.nft_transfers && transaction.nft_transfers.length > 0) {
+      return <span>NFT 🎨</span>; // NFT Transfer icon
+    } else if (
+      transaction.erc20_transfer &&
+      transaction.erc20_transfer.length > 0
+    ) {
+      return <span>ERC - 20 💰</span>; // ERC-20 Transfer icon
+    } else if (
+      transaction.native_transfers &&
+      transaction.native_transfers.length > 0
+    ) {
+      return <span>NATIVE 💸</span>; // Native Transfer icon
+    } else {
+      return null;
+    }
+  };
+
   return (
     <div className={`App ${darkMode ? "dark-mode" : ""}`}>
       <h1 style={{ color: darkMode ? "#FF1493" : "#333" }}>Crypto Tracker</h1>
@@ -208,6 +226,9 @@ function App() {
           <option value="bsc">Binance Smart Chain</option>
           <option value="matic">Polygon</option>
           <option value="avalanche">Avalanche</option>
+          <option value="fantom">Fantom</option>
+          <option value="arbitrum">Arbitrum</option>
+          <option value="optimism">Optimism</option>
         </select>
         <button onClick={handleButtonClick} className="button">
           {loading ? "Loading..." : "Show all my crypto!"}
@@ -276,7 +297,7 @@ function App() {
                     />
                   </td>
                   <td>{asset.name}</td>
-                  <td>${Number(asset.usd_price).toFixed(2)}</td>
+                  <td>{Number(asset.usd_price).toFixed(2)}</td>
                   <td>
                     {typeof asset.balance_formatted === "number"
                       ? Number(asset.balance_formatted).toFixed(2)
@@ -334,6 +355,7 @@ function App() {
             </div>
           </div>
 
+          {/* Wallet History */}
           <div className="wallet-history">
             <h2
               style={{
@@ -351,19 +373,8 @@ function App() {
                   <p>Transaction Hash: {transaction.hash}</p>
                   <p>From: {transaction.from_address}</p>
                   <p>To: {transaction.to_address}</p>
-                  {/* Display transaction type */}
-                  {transaction.nft_transfers &&
-                    transaction.nft_transfers.length > 0 && (
-                      <p>Transaction Type: NFT Transfer</p>
-                    )}
-                  {transaction.erc20_transfer &&
-                    transaction.erc20_transfer.length > 0 && (
-                      <p>Transaction Type: ERC-20 Transfer</p>
-                    )}
-                  {transaction.native_transfers &&
-                    transaction.native_transfers.length > 0 && (
-                      <p>Transaction Type: Native Transfer</p>
-                    )}
+                  {/* Display transaction type icon */}
+                  <p>Transaction Type: {getTransactionIcon(transaction)}</p>
                 </li>
               ))}
             </ul>
