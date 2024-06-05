@@ -92,7 +92,7 @@ function App() {
   const fetchNetWorth = async (address) => {
     try {
       setLoading(true);
-      const chains = ["eth", "bsc", "matic", "avalanche", "fantom", "arbitrum", "optimism"];
+      const chains = ["eth", "bsc", "matic", "avalanche", "fantom", "arbitrum", "optimism", "base"];
       const netWorthData = {};
 
       await Promise.all(
@@ -229,6 +229,7 @@ function App() {
           <option value="fantom">Fantom</option>
           <option value="arbitrum">Arbitrum</option>
           <option value="optimism">Optimism</option>
+          <option value="base">Base</option>
         </select>
         <button onClick={handleButtonClick} className="button">
           {loading ? "Loading..." : "Show all my crypto!"}
